@@ -20,7 +20,7 @@ class HTTPProvider(BaseProvider, _HTTPProviderCore):
     def make_request(self, method: RPCMethod, *params: Any) -> RPCResponse:
         """Make an HTTP request to an http rpc endpoint."""
         request_kwargs = self._before_request(method=method, params=params, is_async=False)
-        raw_response = requests.post(**request_kwargs, timeout=self.timeout)
+        raw_response = requests.post(**request_kwargs, timeout=self.timeout, proxy=self.proxy)
         return self._after_request(raw_response=raw_response, method=method)
 
     def is_connected(self) -> bool:
